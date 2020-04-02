@@ -497,6 +497,9 @@ EOF
 
 %check
 %if %{with tests}
+# Temporarily disable test-mountpoint-util
+# See: https://bugzilla.redhat.com/show_bug.cgi?id=1803070
+echo 'int main(void) { return 77; }' > src/test/test-mountpoint-util.c
 meson test -C %{_vpath_builddir} -t 6
 %endif
 
