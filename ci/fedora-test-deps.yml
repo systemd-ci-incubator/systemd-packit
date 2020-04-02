@@ -1,0 +1,15 @@
+---
+
+# vim: sw=2 ts=2 et
+
+- hosts: all
+  tasks:
+  - name: Install necessary test dependencies for Fedora
+    dnf:
+      state: present
+      name:
+        - coreutils
+        - rpm-build
+        - systemd
+        - systemd-container
+        - util-linux
