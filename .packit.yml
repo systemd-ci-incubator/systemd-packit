@@ -5,6 +5,9 @@ synced_files:
     dest: systemd.spec
 upstream_package_name: systemd
 downstream_package_name: systemd
+# git describe returns in systemd's case 'v245-xxx' which breaks RPM version
+# detection (that expects 245-xxxx'. Let's tweak the version string accordingly
+current_version_command: ["bash", "-c", "git describe --tags | grep -Eo '[0-9]+.*$'"]
 #upstream_ref: v245
 
 jobs:
