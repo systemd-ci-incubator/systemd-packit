@@ -1,0 +1,15 @@
+# vi: sw=4 ts=4 et:
+
+/pull-request/fedora:
+    summary:
+        systemd Fedora testsuite
+    discover:
+        how: fmf
+        filter: "tags: selinux"
+        repository: "https://github.com/systemd-ci-incubator/systemd-fedora-tests"
+    prepare:
+        how: ansible
+        playbooks:
+            - ci/fedora-test-deps.yml
+    execute:
+        how: beakerlib
