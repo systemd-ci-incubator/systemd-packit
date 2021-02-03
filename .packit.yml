@@ -34,12 +34,15 @@ actions:
     #
     # [0] https://github.com/mesonbuild/meson/issues/7360
     - 'sed -i "/^CONFIGURE_OPTS=(/a%ifnarch i386 i686\n-Dc_args=\"-Werror -Wno-deprecated-declarations\" -Dcpp_args=\"-Werror -Wno-deprecated-declarations\"\n%endif" .packit_rpm/systemd.spec'
+    - 'sed -i "s/^meson test /sudo -E meson test --no-stdsplit -v /" .packit_rpm/systemd.spec'
+    - 'sed -i "/^meson test /iwhoami" .packit_rpm/systemd.spec'
+    - 'sed -i "/^meson test /iid" .packit_rpm/systemd.spec'
+    - 'sed -i "/^meson test /isystemd-detect-virt" .packit_rpm/systemd.spec'
+    - 'sed -i "/^meson test /isudo -ll" .packit_rpm/systemd.spec'
 
 jobs:
 - job: copr_build
   trigger: pull_request
   metadata:
     targets:
-    - fedora-rawhide-aarch64
-    - fedora-rawhide-i386
     - fedora-rawhide-x86_64
