@@ -40,6 +40,5 @@ jobs:
   trigger: pull_request
   metadata:
     targets:
-    - fedora-rawhide-aarch64
-    - fedora-rawhide-i386
-    - fedora-rawhide-x86_64
+      - fedora-eln-x86_64
+      - fedora-eln-s390x
