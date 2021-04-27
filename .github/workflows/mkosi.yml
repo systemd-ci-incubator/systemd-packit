@@ -18,9 +18,6 @@ jobs:
       matrix:
         distro:
           - arch
-          - debian
-          - ubuntu
-          - fedora
 
     steps:
     - uses: actions/checkout@v2
@@ -47,6 +44,11 @@ jobs:
 
     - name: Build ${{ matrix.distro }}
       run: sudo python3 -m mkosi --password= --qemu-headless build
+
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      with:
+        limit-access-to-actor: true
 
     - name: Boot ${{ matrix.distro }} systemd-nspawn
       run: sudo ./.github/workflows/test_mkosi_boot.py python3 -m mkosi --password= --qemu-headless boot
