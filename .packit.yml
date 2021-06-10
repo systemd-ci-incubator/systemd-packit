@@ -37,6 +37,11 @@ jobs:
   trigger: pull_request
   metadata:
     targets:
-    - fedora-rawhide-aarch64
-    - fedora-rawhide-i386
+    - fedora-rawhide-x86_64
+
+- job: tests
+  trigger: pull_request
+  metadata:
+    fmf_url: "https://github.com/systemd-ci-incubator/systemd-fedora-tests"
+    targets:
     - fedora-rawhide-x86_64
