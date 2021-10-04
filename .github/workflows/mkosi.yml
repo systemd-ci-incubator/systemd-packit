@@ -19,11 +19,8 @@ jobs:
       fail-fast: false
       matrix:
         distro:
-          - arch
           - debian
           - ubuntu
-          - fedora
-          - opensuse
 
     steps:
     - uses: actions/checkout@v2

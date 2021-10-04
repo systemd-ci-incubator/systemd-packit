@@ -70,6 +70,12 @@ if [ "$WITH_TESTS" = 1 ] ; then
                 getent group $id >/dev/null || groupadd -g $id testgroup$id
         done
 
+        if ! ./test-recurse-dir; then
+            coredumpctl
+            coredumpctl info test-recurse-dir
+            echo -e "thread apply all bt\nbt full\nquit" | coredumpctl debug test-recurse-dir
+            exit 1
+        fi
         ninja test
 fi
 cd "$SRCDIR"
