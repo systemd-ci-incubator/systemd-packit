@@ -27,10 +27,6 @@ jobs:
       fail-fast: false
       matrix:
         distro:
-          - arch
-          - debian
-          - ubuntu
-          - fedora
           - opensuse
 
     steps:
