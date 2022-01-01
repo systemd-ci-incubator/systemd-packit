@@ -32,15 +32,11 @@ jobs:
       fail-fast: false
       matrix:
         distro:
-          - arch
-          - debian
-          - ubuntu
-          - fedora
           - opensuse
 
     steps:
     - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
-    - uses: systemd/mkosi@4d64fc8134f93d87ac584183e7762ac1d0efa0e5
+    - uses: systemd/mkosi@v12
 
     - name: Install
       run: sudo apt-get update && sudo apt-get install --no-install-recommends python3-pexpect python3-jinja2
@@ -60,6 +56,9 @@ jobs:
         ninja -C build
         sudo ln -svf $PWD/build/systemd-nspawn `which systemd-nspawn`
         systemd-nspawn --version
+
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
 
     - name: Build ${{ matrix.distro }}
       run: ./.github/workflows/run_mkosi.sh --build-environment=CI_BUILD=1 --kernel-command-line "${{ env.KERNEL_CMDLINE }}" build
