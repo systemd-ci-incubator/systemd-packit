@@ -31,6 +31,8 @@ actions:
     # [0] https://github.com/mesonbuild/meson/issues/7360
     # [1] https://github.com/systemd/systemd/pull/18908#issuecomment-792250110
     - 'sed -i "/^CONFIGURE_OPTS=(/a--werror" .packit_rpm/systemd.spec'
+    - 'sed -i "/^BuildRequires:  gcc$/aBuildRequires: mockbuild-root" .packit_rpm/systemd.spec'
+    - 'sed -i "s/^meson test /sudo -E meson test --no-stdsplit -v /" .packit_rpm/systemd.spec'
 
 jobs:
 - job: copr_build
@@ -41,3 +43,5 @@ jobs:
     - fedora-rawhide-i386
     - fedora-rawhide-ppc64le
     - fedora-rawhide-x86_64
+    additional_repos:
+    - https://mrc0mmand.fedorapeople.org/mockbuild-root/
