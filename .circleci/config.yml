@@ -1,0 +1,28 @@
+---
+# Docs: https://circleci.com/docs/2.0/arm-resources/
+version: 2.1
+
+jobs:
+  build-aarch64:
+    machine:
+      image: ubuntu-2004:202101-01
+    # arm.medium: aarch64, 2 vCPUs, 8 GB RAM
+    resource_class: arm.medium
+    steps:
+      - checkout
+      - run:
+          command: |
+            set -x
+            echo "deb-src http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs) main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
+            sudo apt -y update
+            sudo apt -y build-dep systemd
+            sudo apt -y install python3-jinja2
+            sudo python3 -c 'import jinja2'
+            sudo meson -Dtests=unsafe -Dslow-tests=true -Dfuzz-tests=true --werror build
+            sudo ninja -C build
+            sudo meson test -C build --print-errorlogs
+
+workflows:
+  build:
+    jobs:
+      - build-aarch64
