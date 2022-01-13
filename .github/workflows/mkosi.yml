@@ -32,11 +32,9 @@ jobs:
       fail-fast: false
       matrix:
         distro:
-          - arch
           - debian
           - ubuntu
           - fedora
-          - opensuse
 
     steps:
     - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
