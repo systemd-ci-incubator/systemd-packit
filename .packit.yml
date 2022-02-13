@@ -41,3 +41,5 @@ jobs:
     - fedora-rawhide-i386
     - fedora-rawhide-ppc64le
     - fedora-rawhide-x86_64
+    - fedora-rawhide-armhfp
+    - fedora-rawhide-s390x
