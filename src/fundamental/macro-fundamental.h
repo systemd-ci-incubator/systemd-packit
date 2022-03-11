@@ -27,11 +27,7 @@
 /* Define C11 noreturn without <stdnoreturn.h> and even on older gcc
  * compiler versions */
 #ifndef _noreturn_
-#if __STDC_VERSION__ >= 201112L
-#define _noreturn_ _Noreturn
-#else
 #define _noreturn_ __attribute__((__noreturn__))
-#endif
 #endif
 
 #define XSTRINGIFY(x) #x
