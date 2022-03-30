@@ -71,6 +71,7 @@ bash -c "echo 'deb-src http://archive.ubuntu.com/ubuntu/ $RELEASE main restricte
 #       as well, otherwise meson falls back to ar from binutils which
 #       doesn't work with LTO
 if [[ "$COMPILER" == clang ]]; then
+    [[ "$COMPILER_VERSION" == "snapshot" ]] && COMPILER_VERSION=15
     CC="clang-$COMPILER_VERSION"
     CXX="clang++-$COMPILER_VERSION"
     AR="llvm-ar-$COMPILER_VERSION"
@@ -82,8 +83,8 @@ if [[ "$COMPILER" == clang ]]; then
         # Latest LLVM stack deb packages provided by https://apt.llvm.org/
         # Following snippet was partly borrowed from https://apt.llvm.org/llvm.sh
         wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | gpg --yes --dearmor --output /usr/share/keyrings/apt-llvm-org.gpg
-        printf "deb [signed-by=/usr/share/keyrings/apt-llvm-org.gpg] http://apt.llvm.org/%s/   llvm-toolchain-%s-%s  main\n" \
-               "$RELEASE" "$RELEASE" "$COMPILER_VERSION" >/etc/apt/sources.list.d/llvm-toolchain.list
+        printf "deb [signed-by=/usr/share/keyrings/apt-llvm-org.gpg] http://apt.llvm.org/%s/   llvm-toolchain-%s main\n" \
+               "$RELEASE" "$RELEASE" >/etc/apt/sources.list.d/llvm-toolchain.list
         PACKAGES+=("clang-$COMPILER_VERSION" "lldb-$COMPILER_VERSION" "lld-$COMPILER_VERSION" "clangd-$COMPILER_VERSION")
     fi
 elif [[ "$COMPILER" == gcc ]]; then
@@ -147,6 +148,8 @@ for args in "${ARGS[@]}"; do
             fatal "$loader: Gaps found in section table"
         fi
     done
+
+    ninja -C build test
 
     git clean -dxf
 
