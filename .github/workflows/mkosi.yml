@@ -32,10 +32,20 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - distro: arch
+            release: rolling
           - distro: debian
             release: testing
           - distro: ubuntu
             release: jammy
+          - distro: fedora
+            release: "36"
+          - distro: fedora
+            release: rawhide
+          - distro: opensuse
+            release: tumbleweed
+          - distro: centos_epel
+            release: 8-stream
           - distro: centos_epel
             release: 9-stream
 
@@ -67,11 +77,6 @@ jobs:
 
     - name: Show ${{ matrix.distro }} image summary
       run: ./.github/workflows/run_mkosi.sh summary
-
-      #    - name: Setup tmate session
-      #      uses: mxschmitt/action-tmate@v3
-      #      with:
-      #        limit-access-to-actor: true
 
     - name: Boot ${{ matrix.distro }} systemd-nspawn
       run: ./.github/workflows/run_mkosi.sh boot ${{ env.KERNEL_CMDLINE }}
