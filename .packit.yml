@@ -62,3 +62,4 @@ jobs:
   tmt_plan: ci
   targets:
   - fedora-rawhide-x86_64
+  - fedora-rawhide-aarch64

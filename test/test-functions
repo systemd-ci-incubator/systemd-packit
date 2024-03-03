@@ -352,9 +352,9 @@ find_qemu_bin() {
 
     [[ -n "$ARCH" ]] || ARCH="$(uname -m)"
     case $ARCH in
-    x86_64)
+    x86_64|aarch64)
         # QEMU's own build system calls it qemu-system-x86_64
-        [[ -n "$QEMU_BIN" ]] || QEMU_BIN="$(command -v qemu-system-x86_64 2>/dev/null | grep '^/' -m1)"
+        [[ -n "$QEMU_BIN" ]] || QEMU_BIN="$(command -v "qemu-system-$ARCH" 2>/dev/null | grep '^/' -m1)"
         ;;
     i*86)
         # new i386 version of QEMU
